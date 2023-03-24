@@ -5,7 +5,7 @@ const SupportedCards = () => {
   return (
     <div className="App-cards">
       <h3>Supported Cards</h3>
-      <div className="App-cards-list">
+      <div className="App-cards-list" style={{display: 'flex', flexWrap: 'wrap'}}>
         <Card
           name="John Smith"
           number="5555 4444 3333 1111"

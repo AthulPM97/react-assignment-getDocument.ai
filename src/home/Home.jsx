@@ -9,7 +9,6 @@ function Home() {
   const dispatch = useDispatch();
   const { user: authUser } = useSelector((x) => x.auth);
   const { users } = useSelector((x) => x.users);
-  console.log(users)
 
   useEffect(() => {
     dispatch(userActions.getAll());
