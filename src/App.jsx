@@ -10,6 +10,7 @@ import { history } from "_helpers";
 import { Nav, PrivateRoute } from "_components";
 import { Home } from "home";
 import { Login } from "login";
+import AddCard from "card/AddCard";
 
 export { App };
 
@@ -33,6 +34,8 @@ function App() {
             }
           />
           <Route path="/login" element={<Login />} />
+          <Route path="/cards" />
+          <Route path="/cards/new" element={<AddCard />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
