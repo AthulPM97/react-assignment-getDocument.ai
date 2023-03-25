@@ -5,12 +5,11 @@ import {
   formatCreditCardNumber,
   formatCVC,
   formatExpirationDate,
-  formatFormData
+  formatFormData,
 } from "./utils";
 import "react-credit-cards/es/styles-compiled.css";
 
 const AddCard = () => {
-
   const [state, setState] = useState({
     number: "",
     name: "",
@@ -18,7 +17,7 @@ const AddCard = () => {
     cvc: "",
     issuer: "",
     focused: "",
-    formData: null
+    formData: null,
   });
 
   const { name, number, expiry, cvc, focused, issuer, formData } = state;
@@ -49,11 +48,11 @@ const AddCard = () => {
     setState({ ...state, [target.name]: value });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const { issuer } = state;
     const formData = [...e.target.elements]
-      .filter(d => d.name)
+      .filter((d) => d.name)
       .reduce((acc, d) => {
         acc[d.name] = d.value;
         return acc;
@@ -76,6 +75,7 @@ const AddCard = () => {
           focused={focused}
           callback={handleCallback}
         />
+        <br />
         <form ref={formRef} onSubmit={handleSubmit}>
           <div className="form-group">
             <input
@@ -128,6 +128,7 @@ const AddCard = () => {
             </div>
           </div>
           <input type="hidden" name="issuer" value={issuer} />
+          <br />
           <div className="form-actions">
             <button className="btn btn-primary btn-block">PAY</button>
           </div>
@@ -139,14 +140,11 @@ const AddCard = () => {
             ))}
           </div>
         )}
-        <hr style={{ margin: "60px 0 30px" }} />
         <hr style={{ margin: "30px 0" }} />
         <SupportedCards />
       </div>
     </div>
   );
-  
-
-}
+};
 
 export default AddCard;
