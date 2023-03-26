@@ -8,8 +8,16 @@ import {
   formatFormData,
 } from "./utils";
 import "react-credit-cards/es/styles-compiled.css";
+import useHttp from "hooks/use-http";
+
+import cardType from "_helpers/card-type";
 
 const AddCard = () => {
+  const { error, sendRequest } = useHttp();
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user.tokens.access.token;
+
   const [state, setState] = useState({
     number: "",
     name: "",
@@ -57,6 +65,36 @@ const AddCard = () => {
         acc[d.name] = d.value;
         return acc;
       }, {});
+    console.log(formData);
+    // {
+    //   "name": "Sobin's HDFC Card",
+    //   "cardExpiration": "8/2026",
+    //   "cardHolder": "SOBIN GEORGE THOMAS",
+    //   "cardNumber": "4532 7991 1360 8687",
+    //   "category": "VISA"
+    // }
+    const cardData = {
+      name: formData.name,
+      cardExpiration: formData.expiry,
+      cardHolder: formData.name,
+      cardNumber: formData.number,
+      category: cardType(formData.issuer),
+    };
+    console.log(cardData);
+    sendRequest(
+      {
+        url: "https://interview-api.onrender.com/v1/cards",
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/JSON",
+        },
+        body: cardData,
+      },
+      (data) => {
+        console.log(data);
+      }
+    );
 
     setState({ ...state, formData });
     formRef.current.reset();

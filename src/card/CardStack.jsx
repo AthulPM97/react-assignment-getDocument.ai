@@ -35,14 +35,13 @@ const CardStack = () => {
     );
   }, []);
   if (error) console.log(error);
-  console.log(cards)
 
   const renderedCards = cards.map((card, index) => {
     const CreditCard = HOC(CardComponent, (index + 1) * 10, index);
     return (
       <CreditCard
         key={card.id}
-        name={card.name}
+        name={card.cardHolder}
         number={card.cardNumber}
         expiry={card.cardExpiration}
         cvc='123'
@@ -53,6 +52,7 @@ const CardStack = () => {
 
   return (
     <div>
+      <h1 style={{textAlign:'center', marginBottom:'30px'}}>Your saved cards</h1>
       {renderedCards}
     </div>
   );
