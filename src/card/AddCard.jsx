@@ -58,21 +58,12 @@ const AddCard = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { issuer } = state;
     const formData = [...e.target.elements]
       .filter((d) => d.name)
       .reduce((acc, d) => {
         acc[d.name] = d.value;
         return acc;
       }, {});
-    console.log(formData);
-    // {
-    //   "name": "Sobin's HDFC Card",
-    //   "cardExpiration": "8/2026",
-    //   "cardHolder": "SOBIN GEORGE THOMAS",
-    //   "cardNumber": "4532 7991 1360 8687",
-    //   "category": "VISA"
-    // }
     const cardData = {
       name: formData.name,
       cardExpiration: formData.expiry,
@@ -80,7 +71,6 @@ const AddCard = () => {
       cardNumber: formData.number,
       category: cardType(formData.issuer),
     };
-    console.log(cardData);
     sendRequest(
       {
         url: "https://interview-api.onrender.com/v1/cards",
@@ -95,6 +85,7 @@ const AddCard = () => {
         console.log(data);
       }
     );
+    if(error) console.log(error);
 
     setState({ ...state, formData });
     formRef.current.reset();
